@@ -38,4 +38,4 @@ namespace WpfApp6.ViewModels.Base
             return true;
         }
     }
-    }
+}

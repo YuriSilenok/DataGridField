@@ -5,16 +5,35 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
+using WpfApp6.Infrastructure.Commands;
+using WpfApp6.ViewModels.Base;
+using WpfApp6.Infrastructure.Commands.Base;
+using System.Reflection.Metadata;
 using WpfApp6.Models;
 
 namespace WpfApp6.ViewModels
 {
-    internal class MainWindowViewModel : Base.ViewModel
+    internal class MainWindowViewModel : ViewModel
     {
-        public MainWindowViewModel() { Size = "3"; }
+        private Game game;
+        public Game Game 
+        {
+            get => game;
+            set => Set(ref game, value);
+        }
 
-        ObservableCollection<ObservableCollection<int>> f;
-        public ObservableCollection<ObservableCollection<int>> F
+        public MainWindowViewModel()
+        {
+            game = new Game();
+            Size = "3";
+        }
+
+
+
+        ObservableCollection<ObservableCollection<Field>> f = new ObservableCollection<ObservableCollection<Field>>();
+        public ObservableCollection<ObservableCollection<Field>> F
         {
             get => f;
             set => Set(ref f, value);
@@ -25,8 +44,7 @@ namespace WpfApp6.ViewModels
         public DataTable Field
         {
             get => field;
-            set => Set(ref field, value);
-            
+            set => Set(ref field, value);            
         }
 
         int size = 3;
@@ -52,19 +70,17 @@ namespace WpfApp6.ViewModels
                     }
                     Field = newField;
 
-                    ObservableCollection<ObservableCollection<int>> fNew = new ObservableCollection<ObservableCollection<int>>();
-                    
+
+                    f.Clear();                    
                     for (int i = 0; i < newSize; i++)
                     {
-                        ObservableCollection<int> fRow = new ObservableCollection<int>();
+                        ObservableCollection<Field> fRow = new ObservableCollection<Field>();
                         for (int j = 0; j < size; j++)
-                            fRow.Add(i * 10 + j);
-                        fNew.Add(fRow);
+                            fRow.Add(new Field() {I = i, J = j });
+                        f.Add(fRow);
                     }
-                    F = fNew;
                 }
             }
         }
-
     }
 }

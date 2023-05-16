@@ -4,17 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:WpfApp6"
+        xmlns:ce="clr-namespace:WpfApp6.Infrastructure.Commands"
+        xmlns:c="clr-namespace:WpfApp6.Converters"
         xmlns:vm="clr-namespace:WpfApp6.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="300">
+        Title="{Binding Path=Game.Move}" Height="300" Width="300">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <c:FuckConverter x:Key="FuckConverter"/>
+        <ce:FuckCommand x:Key="FuckCommand"/>
+        <vm:MainWindowViewModel x:Key="FuckViewModal"/>
         <DataTemplate x:Key="DataTemplate_Level2">
-            <Button Content="{Binding}" Height="40" Width="50" Margin="4,4,4,4"/>
-        </DataTemplate>
+            <Button Content="{Binding State}"
+                    Command="{StaticResource FuckCommand}"
 
+                    Height="40" Width="40" Margin="1">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource FuckConverter}">
+                        <Binding/>
+                        <Binding Source="{StaticResource FuckViewModal}"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+        </DataTemplate>
         <DataTemplate x:Key="DataTemplate_Level1">
             <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
                 <ItemsControl.ItemsPanel>
@@ -31,22 +45,6 @@
             <TextBox 
                 DockPanel.Dock="Top" 
                 Text="{Binding Size}"/>
-            
-            <!--<DataGrid
-                IsReadOnly="True"
-                CanUserAddRows="False"
-                HeadersVisibility="None"
-                AutoGenerateColumns="False"
-                ItemsSource="{Binding Field}">
-                <DataGrid.Resources>
-                    <DataTemplate x:Key="dt" >
-                        <Button Content="{Binding Field}"/>
-                    </DataTemplate>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn CellTemplate="{StaticResource dt}"/>
-                </DataGrid.Columns>
-            </DataGrid>-->
             <ItemsControl ItemsSource="{Binding F}" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
         </DockPanel>
     </Grid>

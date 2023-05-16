@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp6.ViewModels.Base;
 
 namespace WpfApp6.Models
 {
-    internal class Game
+    class Game : ViewModel
     {
-        public int[,] Field { get; set; }
+        private string move = "O";
+        public string Move
+        {
+            get => move;
+            set => Set(ref move, value);
+        }
     }
 }
