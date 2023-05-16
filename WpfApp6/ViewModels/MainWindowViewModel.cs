@@ -13,6 +13,14 @@ namespace WpfApp6.ViewModels
     {
         public MainWindowViewModel() { Size = "3"; }
 
+        ObservableCollection<ObservableCollection<int>> f;
+        public ObservableCollection<ObservableCollection<int>> F
+        {
+            get => f;
+            set => Set(ref f, value);
+        }
+
+
         DataTable field;
         public DataTable Field
         {
@@ -30,6 +38,7 @@ namespace WpfApp6.ViewModels
                 if (int.TryParse(value, out int newSize))
                 {
                     Set(ref size, newSize);
+
                     DataTable newField = new DataTable();
                     for (int i = 0; i < newSize; i++)
                         newField.Columns.Add();
@@ -42,6 +51,17 @@ namespace WpfApp6.ViewModels
                         newField.Rows.Add(row);
                     }
                     Field = newField;
+
+                    ObservableCollection<ObservableCollection<int>> fNew = new ObservableCollection<ObservableCollection<int>>();
+                    
+                    for (int i = 0; i < newSize; i++)
+                    {
+                        ObservableCollection<int> fRow = new ObservableCollection<int>();
+                        for (int j = 0; j < size; j++)
+                            fRow.Add(i * 10 + j);
+                        fNew.Add(fRow);
+                    }
+                    F = fNew;
                 }
             }
         }

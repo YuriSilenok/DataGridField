@@ -10,16 +10,44 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Button Content="{Binding}" Height="40" Width="50" Margin="4,4,4,4"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
         <DockPanel>
             <TextBox 
                 DockPanel.Dock="Top" 
                 Text="{Binding Size}"/>
-            <DataGrid
+            
+            <!--<DataGrid
+                IsReadOnly="True"
                 CanUserAddRows="False"
                 HeadersVisibility="None"
+                AutoGenerateColumns="False"
                 ItemsSource="{Binding Field}">
-            </DataGrid>
+                <DataGrid.Resources>
+                    <DataTemplate x:Key="dt" >
+                        <Button Content="{Binding Field}"/>
+                    </DataTemplate>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn CellTemplate="{StaticResource dt}"/>
+                </DataGrid.Columns>
+            </DataGrid>-->
+            <ItemsControl ItemsSource="{Binding F}" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
         </DockPanel>
     </Grid>
 </Window>
