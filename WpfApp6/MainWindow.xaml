@@ -19,8 +19,7 @@
         <DataTemplate x:Key="DataTemplate_Level2">
             <Button Content="{Binding State}"
                     Command="{StaticResource FuckCommand}"
-
-                    Height="40" Width="40" Margin="1">
+                    Height="40" Width="40" Margin="5">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource FuckConverter}">
                         <Binding/>
@@ -29,8 +28,11 @@
                 </Button.CommandParameter>
             </Button>
         </DataTemplate>
-        <DataTemplate x:Key="DataTemplate_Level1">
-            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+        <DataTemplate 
+            x:Key="DataTemplate_Level1">
+            <ItemsControl 
+                ItemsSource="{Binding}" 
+                ItemTemplate="{DynamicResource DataTemplate_Level2}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -45,7 +47,9 @@
             <TextBox 
                 DockPanel.Dock="Top" 
                 Text="{Binding Size}"/>
-            <ItemsControl ItemsSource="{Binding F}" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+            <ItemsControl 
+                ItemsSource="{Binding F}" 
+                ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
         </DockPanel>
     </Grid>
 </Window>
